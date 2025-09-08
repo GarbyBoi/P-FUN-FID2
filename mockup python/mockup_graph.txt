@@ -1,0 +1,37 @@
+import random
+import matplotlib.pyplot as plt
+
+# Gameweek range
+start, end = 40, 63
+weeks = list(range(start, end + 1))
+
+# Club colors
+club_colors = {
+    "Arsenal": "#FF0000",         # Bright Red
+    "Liverpool": "#d63c63",       # Dark Red
+    "Manchester United": "#690000", # Deep Red
+    "Chelsea": "#4169E1",         # Royal Blue
+    "Manchester City": "#87CEEB", # Sky Blue
+    "Tottenham": "#000000"        # Black
+}
+
+# Generate random cumulative points for each club
+club_points = {}
+for club in club_colors:
+    points = [0]
+    for _ in range(len(weeks) - 1):
+        points.append(points[-1] + random.choice([0, 1, 3]))
+    club_points[club] = points
+
+# Plotting
+plt.figure(figsize=(12, 6))
+for club, color in club_colors.items():
+    plt.plot(weeks, club_points[club], marker='o', label=club, color=color)
+
+plt.title("Mock-up Cumulative Points for Big Six Clubs")
+plt.xlabel("Gameweek")
+plt.ylabel("Points")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
