@@ -3,10 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ScottPlot;
-using ScottPlot;
 using ScottPlot.WinForms;
-
-
 
 namespace BigSixPlotter
 {
@@ -19,35 +16,42 @@ namespace BigSixPlotter
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            buttonUpdate.Click += (s, e) => UpdatePlot();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var plt = formsPlot1.Plot;
 
-            foreach (var team in teams)
+            checkedListBoxTeams.Items.AddRange(teams);
+            for (int i = 0; i < checkedListBoxTeams.Items.Count; i++)
+                checkedListBoxTeams.SetItemChecked(i, true); // check all by default
+
+            UpdatePlot(); 
+        }
+
+        private void UpdatePlot()
+        {
+            var plt = formsPlot1.Plot;
+            plt.Clear();
+
+            foreach (string team in checkedListBoxTeams.CheckedItems)
             {
                 string filePath = Path.Combine(dataPath, $"{team}.csv");
                 if (!File.Exists(filePath))
-                {
-                    MessageBox.Show($"Missing file: {filePath}");
                     continue;
-                }
 
-                // Read and parse the file
                 var lines = File.ReadAllLines(filePath);
                 var points = lines.Select(line => int.TryParse(line.Trim(), out int val) ? val : 0).ToArray();
 
-                // Compute cumulative points
                 double[] cumulative = new double[points.Length];
                 cumulative[0] = points[0];
                 for (int i = 1; i < points.Length; i++)
                     cumulative[i] = cumulative[i - 1] + points[i];
 
-                // Plot
                 double[] x = Enumerable.Range(1, cumulative.Length).Select(i => (double)i).ToArray();
                 var scatter = plt.Add.Scatter(x, cumulative);
                 scatter.Label = team.ToUpper();
+
                 ScottPlot.Color color;
                 switch (team)
                 {
@@ -60,16 +64,18 @@ namespace BigSixPlotter
                     default: color = ScottPlot.Color.FromHex("#808080"); break;                // Gray fallback
                 }
                 scatter.Color = color;
-
-
             }
 
-            plt.Title("Big Six Point Evolution (Last 5 Seasons)");
-            plt.XLabel("Matchday");
-            plt.YLabel("Cumulative Points");
-            plt.Legend.IsVisible = true;
-
+            plt.Title("THE PL INTER-SEASON PERFORMENCE TRACKER");
+            plt.XLabel("Gameweek");
+            plt.YLabel("Points");
+            plt.Legend.Location = Alignment.UpperLeft;
             formsPlot1.Refresh();
+        }
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

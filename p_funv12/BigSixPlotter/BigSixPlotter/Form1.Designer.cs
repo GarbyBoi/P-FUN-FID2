@@ -29,24 +29,46 @@
         private void InitializeComponent()
         {
             this.formsPlot1 = new ScottPlot.WinForms.FormsPlot();
+            this.checkedListBoxTeams = new System.Windows.Forms.CheckedListBox();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // formsPlot1
             // 
             this.formsPlot1.DisplayScale = 0F;
-            this.formsPlot1.Location = new System.Drawing.Point(72, 48);
+            this.formsPlot1.Location = new System.Drawing.Point(12, 35);
             this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(624, 362);
+            this.formsPlot1.Size = new System.Drawing.Size(1190, 503);
             this.formsPlot1.TabIndex = 0;
+            // 
+            // checkedListBoxTeams
+            // 
+            this.checkedListBoxTeams.FormattingEnabled = true;
+            this.checkedListBoxTeams.Location = new System.Drawing.Point(1208, 78);
+            this.checkedListBoxTeams.Name = "checkedListBoxTeams";
+            this.checkedListBoxTeams.Size = new System.Drawing.Size(120, 349);
+            this.checkedListBoxTeams.TabIndex = 1;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(1208, 433);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(120, 64);
+            this.buttonUpdate.TabIndex = 2;
+            this.buttonUpdate.Text = "Confirm selection";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1384, 655);
+            this.Controls.Add(this.buttonUpdate);
+            this.Controls.Add(this.checkedListBoxTeams);
             this.Controls.Add(this.formsPlot1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.ResumeLayout(false);
 
         }
@@ -54,6 +76,8 @@
         #endregion
 
         private ScottPlot.WinForms.FormsPlot formsPlot1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxTeams;
+        private System.Windows.Forms.Button buttonUpdate;
     }
 }
 
