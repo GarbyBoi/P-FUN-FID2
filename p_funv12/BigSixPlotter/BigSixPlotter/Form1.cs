@@ -70,6 +70,7 @@ namespace BigSixPlotter
             plt.XLabel("Gameweek");
             plt.YLabel("Points");
             plt.Legend.Location = Alignment.UpperLeft;
+            plt.Axes.SetLimits(0, 190, 0, 570);
             formsPlot1.Refresh();
         }
 
